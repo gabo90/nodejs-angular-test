@@ -1,0 +1,26 @@
+{
+  "development": {
+    "username": "root",
+    "password": "admin25",
+    "database": "meam_app_devel",
+    "host": "127.0.0.1",
+    "dialect": "mariadb",
+    "port": 3307
+  },
+  "test": {
+    "username": "root",
+    "password": "admin25",
+    "database": "meam_app_test",
+    "host": "127.0.0.1",
+    "dialect": "mariadb",
+    "port": 3307
+  },
+  "production": {
+    "username": "root",
+    "password": "admin25",
+    "database": "meam_app_prod",
+    "host": "127.0.0.1",
+    "dialect": "mariadb",
+    "port": 3307
+  }
+}
