@@ -21,6 +21,20 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+// middleware de configuracion para CORS
+app.use(function (req, res, next) {
+  res.setHeader('Access-Control-Allow-Origin', "*");
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+  res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type, authorization');
+  res.setHeader('Access-Control-Allow-Credentials', false);
+  
+  if  (req.method === "OPTIONS")
+  {
+    return res.sendStatus(200);
+  }
+  next();
+});
+
 app.use('/api/v1', api_v1);
 
 // catch 404 and forward to error handler

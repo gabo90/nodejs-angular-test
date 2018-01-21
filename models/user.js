@@ -2,7 +2,14 @@
 module.exports = (sequelize, DataTypes) => {
 
   var User = sequelize.define('User', {
-    usuario:  { type: DataTypes.STRING, allowNull: false, unique: true },
+    email:  {
+      type: DataTypes.STRING,
+      allowNull: false,
+      unique: {
+        args: true,
+        msg: "Ya existe un usuario con ese correo"
+      },
+    },
     password:  { type: DataTypes.STRING, allowNull: false },
     nombre:  { type: DataTypes.STRING, allowNull: false },
     apellidos:  { type: DataTypes.STRING, allowNull: false },
@@ -17,7 +24,10 @@ module.exports = (sequelize, DataTypes) => {
       associate: function(models) {
         User.hasMany(models.Address);
       }
-    }
+    },
+    getterMethods: {
+      fullName: function() { return this.nombre + ' ' + this.apellidos }
+    },
   });
   
   return User;

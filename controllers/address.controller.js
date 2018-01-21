@@ -1,9 +1,12 @@
 'use strict';
 var AddressService = require('../services/address.service')
 var UserService = require('../services/user.service')
+var AuthService = require('../services/auth.service')
 
 exports.getAddresses = async function(req, res, next) {
   try {
+    await AuthService.roleValidator(req.role, 'addresses', 'index');
+    
     var user_id = req.params.user_id;
     var addresses = false;
     
@@ -31,6 +34,8 @@ exports.getAddresses = async function(req, res, next) {
 
 exports.getAddress = async function(req, res, next) {
   try {
+    await AuthService.roleValidator(req.role, 'addresses', 'read');
+
     var user_id = req.params.user_id;
     var address;
     
@@ -60,6 +65,8 @@ exports.getAddress = async function(req, res, next) {
 
 exports.createAddress = async function(req, res, next) {
   try {
+    await AuthService.roleValidator(req.role, 'addresses', 'create');
+
     var address = req.body.address;
     var user_id = req.params.user_id;
     var createdAddress = false;
@@ -89,6 +96,8 @@ exports.createAddress = async function(req, res, next) {
 
 exports.updateAddress = async function(req, res, next) { 
   try {
+    await AuthService.roleValidator(req.role, 'addresses', 'update');
+
     var user_id = req.params.user_id;
     var address = req.body.address;
     var oldAddress, updatedAddress;
@@ -122,6 +131,8 @@ exports.updateAddress = async function(req, res, next) {
 
 exports.deleteAddress = async function(req, res, next) {
   try {
+    await AuthService.roleValidator(req.role, 'addresses', 'delete');
+
     var user_id = req.params.user_id;
     var address = req.body.address;
     var addressFound;

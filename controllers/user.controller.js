@@ -1,8 +1,11 @@
 'use strict';
-var UserService = require('../services/user.service')
+var UserService = require('../services/user.service');
+var AuthService = require('../services/auth.service');
 
 exports.getUsers = async function(req, res, next) {
   try {
+    await AuthService.roleValidator(req.role, 'users', 'index');
+
     var users = await UserService.getUsers({});
 
     return res.status(200).json({status: 200, data: users, message: "Búsqueda exitosa"});
@@ -14,6 +17,8 @@ exports.getUsers = async function(req, res, next) {
 
 exports.getUser = async function(req, res, next) {
   try {
+    await AuthService.roleValidator(req.role, 'users', 'read');
+
     var user = await UserService.getUser(req.params.id);
     
     if (!user) throw Error("Usuario no encontrado");
@@ -27,6 +32,8 @@ exports.getUser = async function(req, res, next) {
 
 exports.createUser = async function(req, res, next) {
   try {
+    await AuthService.roleValidator(req.role, 'users', 'create');
+
     var user = req.body.user;
     var createdUser = await UserService.createUser(user)
     return res.status(201).json({status: 201, data: createdUser, message: "Usuario creado exitosamente"})
@@ -38,6 +45,8 @@ exports.createUser = async function(req, res, next) {
 
 exports.updateUser = async function(req, res, next) {
   try {
+    await AuthService.roleValidator(req.role, 'users', 'update');
+
     var id = req.params.id;
     var user = req.body.user;
     var updatedUser = await UserService.updateUser(id, user)
@@ -53,6 +62,8 @@ exports.updateUser = async function(req, res, next) {
 
 exports.deleteUser = async function(req, res, next){
   try {
+    await AuthService.roleValidator(req.role, 'users', 'delete');
+
     var id = req.params.id;
     var deletedUser = await UserService.deleteUser(id)
 

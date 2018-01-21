@@ -4,7 +4,7 @@
     "password": "admin25",
     "database": "meam_app_devel",
     "host": "127.0.0.1",
-    "dialect": "mariadb",
+    "dialect": "mysql",
     "port": 3307
   },
   "test": {
@@ -12,7 +12,7 @@
     "password": "admin25",
     "database": "meam_app_test",
     "host": "127.0.0.1",
-    "dialect": "mariadb",
+    "dialect": "mysql",
     "port": 3307
   },
   "production": {
@@ -20,7 +20,7 @@
     "password": "admin25",
     "database": "meam_app_prod",
     "host": "127.0.0.1",
-    "dialect": "mariadb",
+    "dialect": "mysql",
     "port": 3307
   }
 }

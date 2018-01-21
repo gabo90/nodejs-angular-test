@@ -6,7 +6,7 @@ exports.getAddresses = async function (query) {
 
     return addresses;
   } catch (e) {
-    throw Error('Error al obtener las direcciones');
+    throw Error(e.message);
   }   
 }
 
@@ -15,7 +15,7 @@ exports.getAddress = async function (id) {
     var address = await Address.findById(id)
     return address ? address : false;
   } catch (e) {
-    throw Error('Error al buscar la dirección');
+    throw Error(e.message);
   }
 }
 
@@ -26,7 +26,7 @@ exports.createAddress = async function(address){
     return savedAddress;
   }
   catch(e) {     
-    throw Error("Error al crear la dirección ")
+    throw Error(e.message)
   }
 }
 
@@ -35,7 +35,7 @@ exports.updateAddress = async function(id, address){
     var addressFound = await Address.findById(id)
   }
   catch (e) {
-    throw Error('Error al buscar la dirección');
+    throw Error(e.message);
   }
 
   if(!addressFound){
@@ -47,7 +47,7 @@ exports.updateAddress = async function(id, address){
     return addressFound;
   }
   catch(e) {
-    throw Error("Error al actualizar la dirección");
+    throw Error(e.message);
   }
 }
 
@@ -58,6 +58,6 @@ exports.deleteAddress = async function(id){
     return address ? address.destroy() : false;
   }
   catch (e) {
-    throw Error('Error al eliminar la dirección');
+    throw Error(e.message);
   }
 }

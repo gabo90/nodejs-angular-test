@@ -34,6 +34,13 @@ var sequelize = new Sequelize(connString);
 models.sequelize
   .sync()
   .then(() => {
+    // models.User.create({
+    //   email: "gabo@email.com",
+    //   password: "gabriel",
+    //   nombre: "Gabriel",
+    //   apellidos: "Geronimo Guerra",
+    //   user_type: "admin"
+    // })
     console.log('Connection has been established successfully.');
     server.listen(port);
     server.on('error', onError);

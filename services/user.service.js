@@ -8,7 +8,7 @@ exports.getUsers = async function (query) {
     return users;
   }
   catch (e) {
-    throw Error('Error al obtener los usuarios');
+    throw Error(e.message);
   }   
 }
 
@@ -19,18 +19,18 @@ exports.getUser = async function (id) {
     return user ? user : false;
   }
   catch (e) {
-    throw Error('Error al buscar el usuario');
+    throw Error(e.message);
   }
 }
 
 exports.createUser = async function(user){
   try {
-    var savedUser = await User.create(user, {fields: ['usuario', 'password', 'nombre', 'apellidos', 'user_type']})
+    var savedUser = await User.create(user, {fields: ['email', 'password', 'nombre', 'apellidos', 'user_type']})
 
     return savedUser;
   }
   catch(e) {     
-    throw Error("Error al crear el usario: " + e)
+    throw Error(e.message)
   }
 }
 
@@ -40,7 +40,7 @@ exports.updateUser = async function(id, user){
 
   }
   catch (e) {
-    throw Error('Error al buscar el usuario');
+    throw Error(e.message);
   }
 
   if(!userFound){
@@ -48,11 +48,11 @@ exports.updateUser = async function(id, user){
   }
 
   try {
-    userFound.update(user, {fields: ['usuario', 'password', 'nombre', 'apellidos', 'user_type']})
+    userFound.update(user, {fields: ['email', 'password', 'nombre', 'apellidos', 'user_type']})
     return userFound;
   }
   catch(e) {
-    throw Error("Error al actualizar el usuario");
+    throw Error(e.message);
   }
 }
 
@@ -75,6 +75,6 @@ exports.deleteUser = async function(id){
     }
   }
   catch (e) {
-    throw Error('Error al eliminar el usuario');
+    throw Error(e.message);
   }
 }
