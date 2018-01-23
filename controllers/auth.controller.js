@@ -9,6 +9,8 @@ exports.authUser = async function(req, res, next) {
     if (!user) throw Error("Usuario no encontrado");
     if (user.password !== req.body.password) throw Error("Contraseña inválida");
 
+    var privileges = await AuthService.getPrivileges(user.user_type);
+
     var payload = {
       user_id: user.id,
       user_type: user.user_type
@@ -16,7 +18,8 @@ exports.authUser = async function(req, res, next) {
     var token = await AuthService.encode(payload);
     var data = {
       nombre: user.fullName.toString().toUpperCase(),
-      user_type: user.user_type.toString().toUpperCase(),
+      tipo: user.user_type.toString().toUpperCase(),
+      privilegios: privileges,
       authToken: token
     }
 

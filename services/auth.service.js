@@ -3,6 +3,20 @@ var jwt = require('jsonwebtoken');
 var config = require('../config');
 var User = require('../models/index.js').User;
 
+const roles = {
+  admin: {
+    users: ['index', 'create', 'read', 'update', 'delete'],
+    addresses: ['index', 'create', 'read', 'update', 'delete']
+  },
+  staff: {
+    users: ['index'],
+    addresses: ['index', 'create', 'read', 'update', 'delete']
+  },
+  customer: {
+    addresses: ['index']
+  }
+}
+
 exports.authUser = async function (email) {
   try {
       var user = await User.find({ where: { email: email } })
@@ -40,19 +54,6 @@ exports.validate = async function (token) {
 
 exports.roleValidator = async function (role, resource, action) {
   try {
-    var roles = {
-      admin: {
-        users: ['index', 'create', 'read', 'update', 'delete'],
-        addresses: ['index', 'create', 'read', 'update', 'delete']
-      },
-      staff: {
-        users: ['index'],
-        addresses: ['index', 'create', 'read', 'update', 'delete']
-      },
-      customer: {
-        addresses: ['index']
-      }
-    }
     var matchRole = roles[role]
     if (!matchRole) throw Error("No autorizado");
     
@@ -61,6 +62,17 @@ exports.roleValidator = async function (role, resource, action) {
     
     var permited = matchResource.indexOf(action);
     if (permited < 0) throw Error("No autorizado");
+  }
+  catch (e) {
+    throw Error(e.message);
+  }
+}
+
+exports.getPrivileges = async function (role) {
+  try {
+    var matchRole = roles[role]
+    if (!matchRole) throw Error("Tipo de usuario no encontrado");
+    return matchRole;
   }
   catch (e) {
     throw Error(e.message);
