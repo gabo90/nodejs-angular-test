@@ -1,0 +1,24 @@
+post user
+{
+  "user": {
+    "usuario": "gabo@email.com",
+    "password": "gabriel",
+    "nombre": "Gabriel",
+    "apellidos": "Geronimo Guerra",
+    "user_type": "admin"
+  }
+}
+
+post address
+{
+  "address": {
+    "nombre": "casa",
+    "direccion": "calle 1 no. 3, mexico df"
+  }
+}
+
+post auth params
+{
+  "user": "gabo@email.com",
+  "password": "gabriel"
+}
